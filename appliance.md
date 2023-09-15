@@ -18,22 +18,32 @@ reference all reqiured resources, such as multiple disks or networks
 The creation of a VM from an Appliance is similar to creating one
 from a GI.
 The key differences is:
-VM boilerplate is provided, and not generated (as in GI)
+VM boilerplate is provided, and not generated (as in GI).
 
 This allows to specify all details of a VM as part of the metadata.
 Including additional disks, networks etc.
 
-GI Creation Flow
+From GI Creation Flow
 1. Given a `DataSource`
 2. System reads Preference and InstanceType from `DataSource`
 3. System generates a VM boilerplate with Pref and IT
 4. System creates VM
+   Optional: System offers user opportunity to modify VM i.e storage
+   class
 
-Appliance Creation Flow
+From Appliance Creation Flow
 1. Given a `DataSource`
 2. System reads _VM boilerplate_ from `DataSource`
 3. System _completes the provided VM boilerplate_
 4. System creates VM
+   Optional: System offers user opportunity to modify VM i.e storage
+   class
+
+### Appliance Objects
+
+An Appliance consist of the following in-cluster objects:
+- DataSource / Golden Image
+- Optional: DVs, PVCs tied with an owner reference to the Golden Image
 
 ## Examples
 
