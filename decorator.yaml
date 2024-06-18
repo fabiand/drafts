@@ -1,0 +1,11 @@
+apiVersion: commons.kubevirt.io/v1alpha1
+kind: VirtualMachineCommons
+metadata:
+  name: 10-cloudinit
+  description: Add a common cloud init to all VMs
+spec:
+  target:
+    labelSelector: {}  # All VMs
+  add:
+  - cloudInit: |  # How do we merge with user provided?
+      # add dev ssh key

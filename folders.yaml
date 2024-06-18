@@ -1,0 +1,39 @@
+kind: namespace
+metadata:
+  name: frontend-2024-02
+  labels:
+    folder.kubevirt.io/name: dev   # works in OCP as namesapces are protected there, user no access
+spec: {}
+---
+kind: namespace
+metadata:
+  name: frontend-2024-01
+  labels:
+    folder.kubevirt.io/name: stage   # works in OCP as namesapces are protected there, user no access
+spec: {}
+---
+apiVersion: folders.kubevirt.io/v1alpha1
+kind: Folder
+metadata:
+  name: central-it
+  description: Folder for central IT
+spec: {}
+---
+apiVersion: folders.kubevirt.io/v1alpha1
+kind: Folder
+metadata:
+  name: dev
+  description: Folder to grant developers privileges on VMs for development
+spec:
+  parentFolderName: central-it
+  roleBinding:
+    subjects:
+    - kind: Group
+      name: dev
+      roleRef:
+        kind: Role
+        name: vm-ops  # start stop vnc console
+    secret:
+      secretRef:
+        namespace: central-it-shared-secrets
+        name: dev-subscription-key
