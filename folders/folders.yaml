@@ -17,7 +17,14 @@ kind: Folder
 metadata:
   name: central-it
   description: Folder for central IT
-spec: {}
+spec:
+  roleBinding:
+    subjects:
+    - kind: Group
+      name: it-staff
+      roleRef:
+        kind: Role
+        name: admin
 ---
 apiVersion: folders.kubevirt.io/v1alpha1
 kind: Folder
@@ -32,8 +39,26 @@ spec:
       name: dev
       roleRef:
         kind: Role
-        name: vm-ops  # start stop vnc console
-    secret:
-      secretRef:
+        name: vm-ops  # start stop vnc console only
+  secrets:
+    - secretRef:
         namespace: central-it-shared-secrets
         name: dev-subscription-key
+---
+apiVersion: folders.kubevirt.io/v1alpha1
+kind: Folder
+metadata:
+  name: quarantine
+  description: Folders isolated from network for further investigation
+spec:
+  parentFolderName: central-it
+  networkPolicies:
+    - # metadata.name can be auto generated
+      name: deny-all
+      template:
+        spec:
+          # namespace selector will be infered from folder
+          podSelector: {}
+          policyTypes:
+            - Egress
+            - Ingress
