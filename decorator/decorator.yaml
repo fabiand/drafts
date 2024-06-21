@@ -1,0 +1,26 @@
+apiVersion: commons.kubevirt.io/v1alpha1
+kind: VirtualMachineDecorator
+metadata:
+  name: 10-cloudinit
+  description: Add a common cloud init to all VMs
+spec:
+  target:
+    labelSelector: {}  # All VMs
+  add:
+  - cloudInit: |  # How do we merge with user provided?
+      # add dev ssh key
+      # unlook unroo, unexpire, …
+---
+apiVersion: commons.kubevirt.io/v1alpha1
+kind: VirtualMachineDecorator
+metadata:
+  name: 20-site-specific-gpu
+  description: Add a common GPU to add to all gn1 VMs
+spec:
+  target:
+    labelSelector:
+      instancetype.vm.kubevirt.io/series: gn1
+  add:
+  - gpus:
+    - name: gpu1
+      deviceName: nvidia.com/A400

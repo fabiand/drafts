@@ -21,23 +21,9 @@ Thus we can rephrase into the following user-stories:
 
 # Folders
 
-In Kubernetes, namespaces are boundaries in order to:
-
-- limit permissions to a set of workloads (the ones within the namespace)
-- limit resource consumption by applying quotas
-- provide independence to namespace owners when choosing names
-
-Folders are a tool to reflcet an organizational structure in Kubernetes in order to assign permissions to namespaces and VMs accordingly.
-
-    RBAC - Role - RoleBinding - User/Group
-    -----------                 ----------
-         |                          |
-         +- Object                  +- Subject
-
-## User Stories
-
-* As an admin I want to manage multiple namespaces at once in order to manage their permissions centrally
+Folders are not discussed jere. see folders/
 
 # Commons
 
-Commons are not discussed here, see decorator/
+## User Stories
+* As a user I want to manage multiple namespaces at once in order to inject my ssh key into all VMs created in my namespaces
