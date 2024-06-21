@@ -14,6 +14,20 @@ spec:
 apiVersion: commons.kubevirt.io/v1alpha1
 kind: VirtualMachineDecorator
 metadata:
+  name: 20-localnet
+  description: Attach vm to an internal private network
+spec:
+  target:
+    labelSelector: {}  # All VMs
+  add:
+  - networks:
+    - name: localnet
+      multus:
+        networkName: localnet
+---
+apiVersion: commons.kubevirt.io/v1alpha1
+kind: VirtualMachineDecorator
+metadata:
   name: 20-site-specific-gpu
   description: Add a common GPU to add to all gn1 VMs
 spec:
